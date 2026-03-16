@@ -68,8 +68,8 @@ class Account(Base):
 
     # Information
     username = Column(String)
-    tester_id = Column(Integer, ForeignKey('tester.id'))
-    casino_id = Column(Integer, ForeignKey('casino.id'))
+    tester_id = Column(Integer, ForeignKey('testers.id'))
+    casino_id = Column(Integer, ForeignKey('casinos.id'))
 
     # Relationships
     tester = relationship("Tester", back_populates='accounts')
@@ -113,6 +113,8 @@ class Action(Base):
     """
     category = Column(String, nullable=False)
     magnitude = Column(Float, nullable=True)
+    account_id = Column(Integer, ForeignKey('accounts.id'))
+    location_id = Column(Integer, ForeignKey('locations.id'))
 
     # Relationships
     account = relationship("Account", back_populates='actions')
