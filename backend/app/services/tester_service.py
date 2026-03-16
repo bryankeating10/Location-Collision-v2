@@ -8,5 +8,5 @@ def create_tester(db: Session, name: str, assigned_quant: int):
     db.refresh(tester)
     return tester
 
-def get_testers(db:Session):
+def list_testers(db:Session):
     return db.query(Tester).all()

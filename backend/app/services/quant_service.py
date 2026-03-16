@@ -8,5 +8,5 @@ def create_quant(db: Session, name: str):
     db.refresh(quant)
     return quant
 
-def get_quant(db: Session):
+def list_quant(db: Session):
     db.query(Quant).all()
