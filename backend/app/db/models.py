@@ -90,6 +90,33 @@ class Location(Base):
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
 
+    # Relationships
+    actions = relationship("Action", back_populates='location')
+
     # Time stamp
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=False)
+
+class Action(Base):
+    __tablename__ = 'actions'
+
+    # Identification
+    id = Column(Integer, primary_key=True, index=True)
+
+    # Information
+    """
+    Categories:
+        - signup: magnitude = null
+        - deposit: magnitude = value
+        - play: magnitude = null
+        - withdrawal: magnitude = value
+    """
+    category = Column(String, nullable=False)
+    magnitude = Column(Float, nullable=True)
+
+    # Relationships
+    account = relationship("Account", back_populates='actions')
+    location = relationship("Location", back_populates='actions')
+
+    # Time stamp
+    performed_at = Column(DateTime, nullable=False)
