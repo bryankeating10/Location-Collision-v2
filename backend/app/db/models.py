@@ -11,7 +11,7 @@ class Quant(Base):
 
     # Relationships
     testers = relationship('Tester',back_populates='quant')
-    actions = relationship('Actions',back_populates='quant')
+    actions = relationship('Action',back_populates='quant')
 
     # Time stamps
     created_at = Column(DateTime, nullable=False)

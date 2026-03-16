@@ -1,13 +1,16 @@
 from fastapi import FastAPI
-from app.db.db import get_session
+from app.db.db import engine, Base
+from app.db import models
 
 app = FastAPI()
+
+print(Base.metadata.tables)
+
+Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def root():
     return {"message":"Location Collision v2 API running"}
-
-from app.db.db import engine
 
 @app.get("/db-test")
 def db_test():
