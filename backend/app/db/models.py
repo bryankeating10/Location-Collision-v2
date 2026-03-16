@@ -79,5 +79,17 @@ class Account(Base):
     # Timestamp
     created_at = Column(DateTime, nullable=False)
 
+class Location(Base):
+    __tablename__ = 'locations'
 
+    # Identification
+    id = Column(Integer,primary_key=True)
+    name = Column(String, nullable=False)
 
+    # Information
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+
+    # Time stamp
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
