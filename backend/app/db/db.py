@@ -1,6 +1,6 @@
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -20,6 +20,9 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+
+class Base(DeclarativeBase):
+    pass
 
 def get_session():
     return SessionLocal()
