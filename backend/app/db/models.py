@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .db import Base
+import datetime
 
 class Quant(Base):
     __tablename__ = 'quants'
@@ -14,7 +15,7 @@ class Quant(Base):
     actions = relationship('Action',back_populates='quant')
 
     # Time stamps
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
 
 class Tester(Base):
     __tablename__ = 'testers'
@@ -31,7 +32,7 @@ class Tester(Base):
     accounts = relationship('Account',back_populates='tester')
 
     # Time stamp
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
 
 class Casino(Base):
     __tablename__ = 'casinos'
@@ -51,13 +52,13 @@ class Casino(Base):
     network_rest = Column(Boolean, nullable=False)
     active = Column(Boolean, nullable=True)
     updated_at = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
     
     # Relationships
     accounts = relationship("Account", back_populates='casino')
 
     # Time stamps
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
     updated_at = Column(DateTime, nullable=True)
 
 class Account(Base):
@@ -77,7 +78,7 @@ class Account(Base):
     actions = relationship("Action", back_populates='account')
 
     # Timestamp
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
 
 class Location(Base):
     __tablename__ = 'locations'
@@ -94,7 +95,7 @@ class Location(Base):
     actions = relationship("Action", back_populates='location')
 
     # Time stamp
-    created_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(),nullable=False)
     updated_at = Column(DateTime, nullable=False)
 
 class Action(Base):
