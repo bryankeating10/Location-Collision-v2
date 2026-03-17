@@ -7,7 +7,7 @@ router = APIRouter(prefix="/testers", tags=["testers"])
 
 @router.post("/")
 def create_tester_endpoint(name: str, assigned_quant: int, db: Session = Depends(get_session)):
-    return create_tester(db, name, assigned_quant)
+    return create_tester(name, assigned_quant, db)
 
 @router.delete("/{tester_id}")
 def delete_tester_endpoint(tester_id: int, db: Session = Depends(get_session)):
