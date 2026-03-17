@@ -8,7 +8,7 @@ class Quant(Base):
 
     # Identification
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False, UniqueConstraint=True)
+    name = Column(String, unique=True, nullable=False)
 
     # Relationships
     testers = relationship('Tester',back_populates='quant')
@@ -21,7 +21,7 @@ class Tester(Base):
 
     # Identification
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, UniqueContraint=True, nullable=False)
+    name = Column(String, unique=True, nullable=False)
 
     # Information
     assigned_quant = Column(Integer, ForeignKey('quants.id'))
@@ -38,7 +38,7 @@ class Casino(Base):
 
     # Identification
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, UniqueContraint=True, nullable=False)
+    name = Column(String, unique=True, nullable=False)
 
     # Information
     network = Column(String(50), nullable=True)
@@ -75,6 +75,8 @@ class Account(Base):
     tester = relationship("Tester", back_populates='accounts')
     casino = relationship("Casino", back_populates='accounts')
     actions = relationship("Action", back_populates='account')
+    __table___args__ = (
+        UniqueConstraint('tester_id', 'casino_id', name='uix_tester_casino'))
 
     # Timestamp
     created_at = Column(DateTime, default=datetime.now,nullable=False)
@@ -84,7 +86,7 @@ class Location(Base):
 
     # Identification
     id = Column(Integer,primary_key=True)
-    name = Column(String, UniqueContraint=True, nullable=False)
+    name = Column(String, unique=True, nullable=False)
 
     # Information
     latitude = Column(Float, nullable=False)
