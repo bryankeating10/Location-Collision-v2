@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.db import get_session
 from app.services.casino_service import create_casino, delete_casino, list_casinos
+from app.schemas.casinos import CasinoResponse
 
 router = APIRouter(prefix="/casinos", tags=["casinos"])
 
@@ -19,6 +20,6 @@ def delete_casino_endpoint(casino_id: int, db: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Casino not found")
     return {"message": f"Casino {casino_id} deleted successfully"}
 
-@router.get("/")
+@router.get("/", response_model=list[CasinoResponse])
 def list_casinos_endpoint(db: Session = Depends(get_session)):
     return list_casinos(db)

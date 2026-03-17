@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.db import get_session
 from app.services.account_service import create_account, delete_account, list_accounts
+from app.schemas.accounts import AccountResponse
 
 router = APIRouter(prefix="/accounts", tags=["accounts"])
 
@@ -16,6 +17,6 @@ def delete_account_endpoint(account_id: int, db: Session = Depends(get_session))
         raise HTTPException(status_code=404, detail="Account not found")
     return {"message": f"Account {account_id} deleted successfully"}
 
-router.get("/")
+@router.get("/", response_model=list[AccountResponse])
 def list_accounts_endpoint(db: Session = Depends(get_session)):
     return list_accounts(db)
