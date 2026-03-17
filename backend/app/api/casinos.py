@@ -9,7 +9,8 @@ router = APIRouter(prefix="/casinos", tags=["casinos"])
 def create_casino_endpoint(name:str, network: str, active: bool, signup_rest: bool, /
                             deposit_rest: bool, play_rest: bool, withdrawal_rest: bool, /
                             network_rest: bool, db: Session = Depends(get_session)):
-    return create_casino
+    return create_casino(name, network, active, signup_rest, deposit_rest, \
+                         play_rest, withdrawal_rest, network_rest, db)
 
 def list_casinos_endpoint(db: Session = Depends(get_session)):
-    return list_casinos
+    return list_casinos(db)
