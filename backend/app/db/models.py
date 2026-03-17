@@ -97,7 +97,7 @@ class Location(Base):
 
     # Time stamp
     created_at = Column(DateTime, default=datetime.now,nullable=False)
-    updated_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=True)
 
 class Action(Base):
     __tablename__ = 'actions'
