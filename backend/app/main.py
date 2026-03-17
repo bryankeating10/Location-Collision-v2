@@ -16,7 +16,6 @@ app.include_router(accounts.router)
 app.include_router(locations.router)
 app.include_router(actions.router)
 
-
 @app.get("/")
 def root():
     return {"message":"Location Collision v2 API running"}
