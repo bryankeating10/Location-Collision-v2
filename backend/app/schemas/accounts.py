@@ -4,8 +4,8 @@ from datetime import datetime
 class AccountResponse(BaseModel):
     id: int
     created_at: datetime
-    username = str
-    tester_id = int
+    username: str
+    tester_id: int
     casino_id: int
     created_at: datetime
 
