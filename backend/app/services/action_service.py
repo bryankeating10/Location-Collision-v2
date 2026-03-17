@@ -10,3 +10,11 @@ def create_action(category: str, account_id: int, location_id: int, magnitude: f
 
 def list_actions(db: Session):
     return db.query(Action).all()
+
+def delete_action(id: int, db: Session):
+    action = db.query(Action).where(Action.id == id).first()
+    if not action:
+        return None
+    db.delete(action)
+    db.commit()
+    return action

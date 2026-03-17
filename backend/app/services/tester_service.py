@@ -10,3 +10,11 @@ def create_tester(name: str, assigned_quant: int, db: Session):
 
 def list_testers(db:Session):
     return db.query(Tester).all()
+
+def delete_tester(id: int, db: Session):
+    tester = db.query(Tester).where(Tester.id == id).first()
+    if not tester:
+        return None
+    db.delete(tester)
+    db.commit()
+    return tester

@@ -11,3 +11,10 @@ def create_quant(name: str, db: Session):
 def list_quants(db: Session):
     return db.query(Quant).all()
 
+def delete_quants(id: str, db: Session):
+    quant = db.query(Quant).filter(Quant.id == id).first()
+    if not quant:
+        return None
+    db.delete(quant)
+    db.commit()
+    return quant
