@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from app.db.models import Casino
 
-def create_casino(name: str, network: str, active: bool, signup_rest: bool, /
-                  deposit_rest: bool, play_rest: bool, withdrawal_rest: bool, /
+def create_casino(name: str, network: str, active: bool, signup_rest: bool, \
+                  deposit_rest: bool, play_rest: bool, withdrawal_rest: bool, \
                   network_rest: bool, db: Session):
     casino = Casino(name=name, network=network, active=active,
                     signup_rest=signup_rest, deposit_rest=deposit_rest, \

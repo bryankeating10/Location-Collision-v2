@@ -11,7 +11,7 @@ def create_location_endpoint(name:str, latitude: float, longitude: float, db: Se
 
 @router.delete("/{location_id}")
 def delete_location_endpoint(location_id: int, db: Session = Depends(get_session)):
-    location = delete_location(db, location_id)
+    location = delete_location(location_id, db)
     if not location:
         raise HTTPException(status_code=404, detail="Location not found")
     return {"message": f"Location {location_id} deleted successfully"}

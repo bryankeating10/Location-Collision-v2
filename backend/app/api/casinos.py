@@ -14,7 +14,7 @@ def create_casino_endpoint(name:str, network: str, active: bool, signup_rest: bo
 
 @router.delete("/{casino_id}")
 def delete_casino_endpoint(casino_id: int, db: Session = Depends(get_session)):
-    casino = delete_casino(db, casino_id)
+    casino = delete_casino(casino_id, db)
     if not casino:
         raise HTTPException(status_code=404, detail="Casino not found")
     return {"message": f"Casino {casino_id} deleted successfully"}

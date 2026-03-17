@@ -11,7 +11,7 @@ def create_quant_endpoint(name:str, db: Session = Depends(get_session)):
 
 @router.delete("/{quant_id}")
 def delete_quant_endpoint(quant_id: int, db: Session = Depends(get_session)):
-    quant = delete_quant(db, quant_id)
+    quant = delete_quant(quant_id, db)
     if not quant:
         raise HTTPException(status_code=404, detail="Quant not found")
     return {"message": f"Quant {quant_id} deleted successfully"}

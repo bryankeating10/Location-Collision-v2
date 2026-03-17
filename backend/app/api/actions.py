@@ -12,7 +12,7 @@ def create_action_endpoint(category:str, account_id: int, location_id: int, \
 
 @router.delete("/{action_id}")
 def delete_action_endpoint(action_id: int, db: Session = Depends(get_session)):
-    action = delete_action(db, action_id)
+    action = delete_action(action_id, db)
     if not action:
         raise HTTPException(status_code=404, detail="Action not found")
     return {"message": f"Action {action_id} deleted successfully"}

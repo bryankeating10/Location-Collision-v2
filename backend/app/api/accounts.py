@@ -11,7 +11,7 @@ def create_account_endpoint(tester_id: int, casino_id: int, username: str = None
 
 @router.delete("/{account_id}")
 def delete_account_endpoint(account_id: int, db: Session = Depends(get_session)):
-    account = delete_account(db, account_id)
+    account = delete_account(account_id, db)
     if not account:
         raise HTTPException(status_code=404, detail="Account not found")
     return {"message": f"Account {account_id} deleted successfully"}

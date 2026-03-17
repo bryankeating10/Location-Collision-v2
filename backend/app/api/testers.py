@@ -11,14 +11,7 @@ def create_tester_endpoint(name: str, assigned_quant: int, db: Session = Depends
 
 @router.delete("/{tester_id}")
 def delete_tester_endpoint(tester_id: int, db: Session = Depends(get_session)):
-    tester = delete_tester(db, tester_id)
-    if not tester:
-        return {"message": "Tester not found"}
-    return {"message": f"Tester {tester_id} deleted successfully"}
-
-@router.delete("/{tester_id}")
-def delete_tester_endpoint(tester_id: int, db: Session = Depends(get_session)):
-    tester = delete_tester(db, tester_id)
+    tester = delete_tester(tester_id, db)
     if not tester:
         raise HTTPException(status_code=404, detail="Tester not found")
     return {"message": f"Tester {tester_id} deleted successfully"}
