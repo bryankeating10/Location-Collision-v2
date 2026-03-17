@@ -7,7 +7,7 @@ router = APIRouter(prefix="/quants", tags=["quants"])
 
 @router.post("/")
 def create_quant_endpoint(name:str, db: Session = Depends(get_session)):
-    return create_quant(db, name)
+    return create_quant(name,db)
 
 @router.get("/")
 def list_quants_endpoint(db: Session = Depends(get_session)):

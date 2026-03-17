@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .db import Base
-import datetime
+from datetime import datetime
 
 class Quant(Base):
     __tablename__ = 'quants'
@@ -12,8 +12,7 @@ class Quant(Base):
 
     # Relationships
     testers = relationship('Tester',back_populates='quant')
-    actions = relationship('Action',back_populates='quant')
-
+    
     # Time stamps
     created_at = Column(DateTime, default=datetime.now(),nullable=False)
 
@@ -28,7 +27,7 @@ class Tester(Base):
     assigned_quant = Column(Integer, ForeignKey('quants.id'))
 
     # Relationships
-    quants = relationship('Quant',back_populates='tester')
+    quant = relationship('Quant',back_populates='testers')
     accounts = relationship('Account',back_populates='tester')
 
     # Time stamp
