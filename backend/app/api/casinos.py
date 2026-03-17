@@ -12,5 +12,6 @@ def create_casino_endpoint(name:str, network: str, active: bool, signup_rest: bo
     return create_casino(name, network, active, signup_rest, deposit_rest, \
                          play_rest, withdrawal_rest, network_rest, db)
 
+@router.get("/")
 def list_casinos_endpoint(db: Session = Depends(get_session)):
     return list_casinos(db)
