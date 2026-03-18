@@ -17,10 +17,10 @@ jobs:
           POSTGRES_PASSWORD: sunbird
           POSTGRES_DB: sunbird_db
         ports:
-          - 5432:5432
+          - 5433:5432
 
     env:
-      DATABASE_URL: postgresql+psycopg2://sunbird:sunbird@localhost:5432/sunbird_db
+      DATABASE_URL: postgresql+psycopg2://sunbird:sunbird@localhost:5433/sunbird_db
 
     steps:
       - uses: actions/checkout@v4
