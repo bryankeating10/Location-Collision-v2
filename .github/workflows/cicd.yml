@@ -29,7 +29,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install -r requirements.txt
+      - run: |
+          cd backend
+          pip install -r requirements.txt
 
       - run: alembic -c alembic.ini upgrade head
 
