@@ -1,9 +1,25 @@
 from sqlalchemy.orm import Session
-from app.db.models import Tester
+from app.db.models import Tester, Casino, Account
 
 def create_tester(name: str, assigned_quant: int, db: Session):
+    # Create tester
     tester = Tester(name=name,assigned_quant=assigned_quant)
     db.add(tester)
+    db.flush()
+
+    # Fetch all casinos
+    casinos = db.query(Casino).all()
+
+    # Create accounts for each casino
+    accounts = [
+        Account(
+            tester_id=tester.id,
+            casino_id=casino.id
+            )
+        for casino in casinos
+    ]
+    db.add_all(accounts)
+
     db.commit()
     db.refresh(tester)
     return tester
