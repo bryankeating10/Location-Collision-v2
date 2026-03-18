@@ -33,7 +33,8 @@ jobs:
           cd backend
           pip install -r requirements.txt
 
-      - run: alembic -c alembic.ini upgrade head
+      - run: |
+          cd backendalembic -c alembic.ini upgrade head
 
       - run: pytest
 
