@@ -87,6 +87,7 @@ class Location(Base):
     # Identification
     id = Column(Integer,primary_key=True)
     name = Column(String, unique=True, nullable=False)
+    state = Column(String, nullable=False)
 
     # Information
     latitude = Column(Float, nullable=False)
