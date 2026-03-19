@@ -8,10 +8,10 @@ class ActionCreate(BaseModel):
     location_id: int
 
 class ActionUpdate(BaseModel):
-    category: str
+    # category: str
     magnitude: float
-    account_id: int
-    location_id: int
+    # account_id: int
+    # location_id: int
 
 class ActionResponse(BaseModel):
     id: int

@@ -1,15 +1,21 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.db import get_session
-from app.services.action_service import create_action, delete_action, list_actions
-from app.schemas.actions import ActionResponse
+from app.services.action_service import create_action, update_action, delete_action, list_actions
+from app.schemas.actions import ActionCreate, ActionUpdate, ActionResponse
 
 router = APIRouter(prefix="/actions", tags=["actions"])
 
 @router.post("/")
-def create_action_endpoint(category:str, account_id: int, location_id: int, \
-                           magnitude: float = None, db: Session = Depends(get_session)):
-    return create_action(category, account_id, location_id, magnitude, db)
+def create_action_endpoint(action_data: ActionCreate, db: Session = Depends(get_session)):
+    return create_action(action_data, db)
+
+@router.put("/{action_id}")
+def update_action_endpoint(id: int, action_data: ActionUpdate, db: Session = Depends(get_session)):
+    updated = update_action(id, action_data, db)
+    if not updated:
+        return HTTPException(status_code=404, detail="Action not found")
+    return updated
 
 @router.delete("/{action_id}")
 def delete_action_endpoint(action_id: int, db: Session = Depends(get_session)):
