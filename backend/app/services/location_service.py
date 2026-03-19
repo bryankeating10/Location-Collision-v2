@@ -10,14 +10,14 @@ def create_location(location_data: LocationCreate, db: Session):
     return location
 
 def update_location(id: int, location_data: LocationUpdate, db: Session):
-    update = db.query(Location).where(Location.id == id).first()
-    if not update:
+    location = db.query(Location).where(Location.id == id).first()
+    if not location:
         return None
     for field, value in location_data.model_dump().items():
-        setattr(update, field, value)
-    db.add(update)
+        setattr(location, field, value)
+    db.add(location)
     db.commit()
-    return update
+    return location
 
 def list_locations(db: Session):
     return db.query(Location).all()
