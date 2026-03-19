@@ -1,0 +1,7 @@
+Create Location:
+{
+  "name": "Panera - 1516 NJ 23, Butler",
+  "state": "NJ"
+  "latitude":  41.00406,
+  "longitude": -74.35656
+}
