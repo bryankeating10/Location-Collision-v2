@@ -4,6 +4,7 @@ from typing import Optional
 
 class LocationCreate(BaseModel):
     name: str
+    state: str
     latitude: float
     longitude: float
 
