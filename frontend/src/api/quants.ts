@@ -4,13 +4,65 @@ This file is pure backend API calls, no UI logic will be here
 */
 
 export type Quant = {
-    id: number
-    name: string
-    created_at: string
+  id: number
+  name: string
+  created_at: string
 }
 
-// Implement the function to fetch quants from the backend API
-export async function getQuants(): Promise<Quant[]> {}
-export async function createQuant(name: string): Promise<Quant> {}
-export async function updateQuant(id: number, name: string): Promise<Quant> {}
-export async function deleteQuant(id: number): Promise<void> {}
+const BASE_URL = "http://localhost:8000" // adjust if needed
+
+// GET all quants
+export async function getQuants(): Promise<Quant[]> {
+  const res = await fetch(`${BASE_URL}/quants`)
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch quants")
+  }
+
+  return res.json()
+}
+
+// CREATE a quant
+export async function createQuant(name: string): Promise<Quant> {
+  const res = await fetch(`${BASE_URL}/quants`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to create quant")
+  }
+
+  return res.json()
+}
+
+// UPDATE a quant
+export async function updateQuant(id: number, name: string): Promise<Quant> {
+  const res = await fetch(`${BASE_URL}/quants/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to update quant")
+  }
+
+  return res.json()
+}
+
+// DELETE a quant
+export async function deleteQuant(id: number): Promise<void> {
+  const res = await fetch(`${BASE_URL}/quants/${id}`, {
+    method: "DELETE",
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to delete quant")
+  }
+}
