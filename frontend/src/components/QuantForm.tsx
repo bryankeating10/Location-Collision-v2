@@ -1,42 +1,25 @@
-import { useState, useEffect } from "react"
+import { useState } from "react";
 
-type QuantFormProps = {
-  onSubmit: (name: string) => void
-  initialValue?: string
-  isEditing?: boolean
-}
+type Props = { onSubmit: (name: string) => void };
 
-export default function QuantForm({
-  onSubmit,
-  initialValue = "",
-  isEditing = false,
-}: QuantFormProps) {
-  const [name, setName] = useState(initialValue)
+export default function QuantForm({ onSubmit }: Props) {
+  const [name, setName] = useState("");
 
-  // Update input when switching edit mode
-  useEffect(() => {
-    setName(initialValue)
-  }, [initialValue])
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!name.trim()) return
-
-    onSubmit(name)
-    setName("") // clear after submit
-  }
+  const handleSubmit = () => {
+    if (!name.trim()) return;
+    onSubmit(name);
+    setName("");
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Enter quant name"
+        placeholder="New quant name"
       />
-      <button type="submit">
-        {isEditing ? "Update" : "Add"}
-      </button>
-    </form>
-  )
+      <button onClick={handleSubmit}>Add Quant</button>
+    </div>
+  );
 }

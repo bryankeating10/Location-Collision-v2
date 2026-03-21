@@ -32,6 +32,7 @@ export default function QuantsPage() {
 
   // Create
   async function handleCreate(name: string) {
+    console.log("HANDLE CREATE CALLED")
     await createQuant(name)
     await loadQuants()
   }
