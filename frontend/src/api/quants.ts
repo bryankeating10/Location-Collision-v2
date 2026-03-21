@@ -9,7 +9,7 @@ export type Quant = {
   created_at: string
 }
 
-const BASE_URL = "http://localhost:8000" // adjust if needed
+const BASE_URL = "http://backend:8000"
 
 // GET all quants
 export async function getQuants(): Promise<Quant[]> {
