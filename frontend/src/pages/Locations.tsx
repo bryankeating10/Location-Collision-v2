@@ -4,6 +4,7 @@ import axios from "axios";
 interface Location {
   id: number;
   name: string;
+  state: string;
   latitude: number;
   longitude: number;
   created_at: string;
@@ -13,6 +14,7 @@ interface Location {
 export default function LocationPage() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [name, setName] = useState("");
+  const [state, setState] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
@@ -35,11 +37,13 @@ export default function LocationPage() {
     try {
       await axios.post("http://localhost:8000/locations/", {
         name,
+        state,
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
       });
 
       setName("");
+      setState("");
       setLatitude("");
       setLongitude("");
 
@@ -57,11 +61,17 @@ export default function LocationPage() {
       <form onSubmit={handleAddLocation} className="mb-6 flex gap-4 flex-wrap">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Name UP"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border p-2 rounded"
+          className="border p-2 rounded flex-1"
           required
+        />
+        <input
+            type="text"
+            placeholder="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
         />
         <input
           type="number"
