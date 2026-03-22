@@ -1,49 +1,30 @@
-import { useEffect, useState } from "react"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-type Quant = {
-  id: number
-  name: string
-  created_at: string
-}
+import Home from "./pages/Home";
+import Quants from "./pages/Quants";
+import Testers from "./pages/Testers";
+import Casinos from "./pages/Casinos";
+import Accounts from "./pages/Accounts";
+import Locations from "./pages/Locations";
+import Actions from "./pages/Actions";
+import Availability from "./pages/Availability";
 
-export default function App() {
-  const [quants, setQuants] = useState<Quant[]>([])
-
-  useEffect(() => {
-  fetch("http://127.0.0.1:8000/quants/")
-    .then(res => {
-      console.log("RAW RESPONSE", res)
-      return res.json()
-    })
-    .then(data => {
-      console.log("PARSED DATA", data)
-      setQuants(data)
-    })
-    .catch(err => console.error("ERROR", err))
-}, [])
-
+function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Quants</h1>
-
-      <table border={1} cellPadding={8}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {quants.map(q => (
-            <tr key={q.id}>
-              <td>{q.id}</td>
-              <td>{q.name}</td>
-              <td>{q.created_at}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/quants" element={<Quants />} />
+          <Route path="/testers" element={<Testers />} />
+          <Route path="/casinos" element={<Casinos />} />
+          <Route path="/accounts" element={<Accounts />} />
+          <Route path="/locations" element={<Locations />} />
+          <Route path="/actions" element={<Actions />} />
+          <Route path="/availability" element={<Availability />} />
+        </Routes>
+      </Router>
   )
 }
+
+export default App;
