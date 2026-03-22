@@ -42,6 +42,7 @@ class Casino(Base):
 
     # Information
     network = Column(String(50), nullable=True)
+    active = Column(Boolean, nullable=True)
 
     # Restriction profile
     signup_rest = Column(Boolean, nullable=False) 
@@ -49,10 +50,7 @@ class Casino(Base):
     play_rest = Column(Boolean, nullable=False)
     withdrawal_rest = Column(Boolean, nullable=False)
     network_rest = Column(Boolean, nullable=False)
-    active = Column(Boolean, nullable=True)
-    updated_at = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, default=datetime.now,nullable=False)
-    
+
     # Relationships
     accounts = relationship("Account", back_populates='casino')
 
