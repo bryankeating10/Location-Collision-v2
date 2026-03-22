@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.db import get_session
-from app.services.account_service import create_account, delete_account, list_accounts
-from app.schemas.accounts import AccountResponse
+from ..db.db import get_session
+from ..services.account_service import create_account, delete_account, list_accounts
+from ..schemas.accounts import AccountResponse
 
 router = APIRouter(prefix="/accounts", tags=["accounts"])
 

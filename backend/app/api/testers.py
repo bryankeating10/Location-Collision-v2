@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.db import get_session
-from app.services.tester_service import create_tester, delete_tester, list_testers
-from app.schemas.testers import TesterResponse
+from ..db.db import get_session
+from ..services.tester_service import create_tester, delete_tester, list_testers
+from ..schemas.testers import TesterResponse
 
 router = APIRouter(prefix="/testers", tags=["testers"])
 

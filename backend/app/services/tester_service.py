@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.db.models import Tester, Casino, Account
+from ..db.models import Tester, Casino, Account
 
 def create_tester(name: str, assigned_quant: int, db: Session):
     # Create tester

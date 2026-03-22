@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.db.models import Casino
-from app.schemas.casinos import CasinoCreate, CasinoUpdate, CasinoResponse
+from ..db.models import Casino
+from ..schemas.casinos import CasinoCreate, CasinoUpdate, CasinoResponse
 
 def create_casino(casino_data: CasinoCreate, db: Session):
     casino = Casino(**casino_data.model_dump())

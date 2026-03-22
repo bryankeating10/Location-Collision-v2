@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.db import get_session
-from app.services.quant_service import create_quant, delete_quant, list_quants
-from app.schemas.quants import QuantResponse
+from ..db.db import get_session
+from ..services.quant_service import create_quant, delete_quant, list_quants
+from ..schemas.quants import QuantResponse
 
 router = APIRouter(prefix="/quants", tags=["quants"])
 

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.db import get_session
-from app.services.casino_service import create_casino, update_casino, delete_casino, list_casinos
-from app.schemas.casinos import CasinoCreate, CasinoUpdate, CasinoResponse
+from ..db.db import get_session
+from ..services.casino_service import create_casino, update_casino, delete_casino, list_casinos
+from ..schemas.casinos import CasinoCreate, CasinoUpdate, CasinoResponse
 
 router = APIRouter(prefix="/casinos", tags=["casinos"])
 

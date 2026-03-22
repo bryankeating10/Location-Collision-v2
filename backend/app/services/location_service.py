@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.db.models import Location
-from app.schemas.locations import LocationCreate, LocationUpdate
+from ..db.models import Location
+from ..schemas.locations import LocationCreate, LocationUpdate
 
 def create_location(location_data: LocationCreate, db: Session):
     location = Location(**location_data.model_dump())

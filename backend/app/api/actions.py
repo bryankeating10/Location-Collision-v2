@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.db import get_session
-from app.services.action_service import create_action, update_action, delete_action, list_actions
-from app.schemas.actions import ActionCreate, ActionUpdate, ActionResponse
+from ..db.db import get_session
+from ..services.action_service import create_action, update_action, delete_action, list_actions
+from ..schemas.actions import ActionCreate, ActionUpdate, ActionResponse
 
 router = APIRouter(prefix="/actions", tags=["actions"])
 

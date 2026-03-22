@@ -11,7 +11,7 @@ host = os.getenv('POSTGRES_HOST')
 port = os.getenv('POSTGRES_PORT')
 db = os.getenv('POSTGRES_DB')
 
-DATABASE_URL = (f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}")
+DATABASE_URL = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}"
 
 engine = create_engine(DATABASE_URL)
 

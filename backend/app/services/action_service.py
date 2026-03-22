@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.db.models import Action
-from app.schemas.actions import ActionCreate, ActionUpdate
+from ..db.models import Action
+from ..schemas.actions import ActionCreate, ActionUpdate
 
 def create_action(action_data: ActionCreate, db: Session):
     action = Action(**action_data.model_dump())
