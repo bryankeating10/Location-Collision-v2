@@ -1,11 +1,122 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Locations: React.FC = () => {
+interface Location {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export default function LocationPage() {
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [name, setName] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+
+  const fetchLocations = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/locations/");
+      setLocations(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const handleAddLocation = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8000/locations/", {
+        name,
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+      });
+
+      setName("");
+      setLatitude("");
+      setLongitude("");
+
+      fetchLocations();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold">Locations Page (Coming Soon!)</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Locations</h1>
+
+      {/* Form */}
+      <form onSubmit={handleAddLocation} className="mb-6 flex gap-4 flex-wrap">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="number"
+          step="any"
+          placeholder="Latitude"
+          value={latitude}
+          onChange={(e) => setLatitude(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="number"
+          step="any"
+          placeholder="Longitude"
+          value={longitude}
+          onChange={(e) => setLongitude(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+          Add
+        </button>
+      </form>
+
+      {/* Table */}
+      <table className="w-full border border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border p-2">ID</th>
+            <th className="border p-2">Name</th>
+            <th className="border p-2">Lat</th>
+            <th className="border p-2">Lng</th>
+            <th className="border p-2">Created</th>
+            <th className="border p-2">Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {locations.map((loc) => (
+            <tr key={loc.id}>
+              <td className="border p-2">{loc.id}</td>
+              <td className="border p-2">{loc.name}</td>
+              <td className="border p-2">{loc.latitude}</td>
+              <td className="border p-2">{loc.longitude}</td>
+              <td className="border p-2">
+                {new Date(loc.created_at).toLocaleString()}
+              </td>
+              <td className="border p-2">
+                {loc.updated_at
+                  ? new Date(loc.updated_at).toLocaleString()
+                  : "-"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
-
-export default Locations;
+}
