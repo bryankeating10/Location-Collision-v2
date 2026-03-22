@@ -23,7 +23,7 @@ export default function LocationPage() {
       const res = await axios.get("http://localhost:8000/locations/");
       setLocations(res.data);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch error:", err);
     }
   };
 
@@ -35,21 +35,27 @@ export default function LocationPage() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8000/locations/", {
-        name,
-        state,
-        latitude: parseFloat(latitude),
-        longitude: parseFloat(longitude),
-      });
+      const payload = {
+        name: name.trim(),
+        state: state.trim(),
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      };
 
+      console.log("Sending payload:", payload);
+
+      await axios.post("http://localhost:8000/locations/", payload);
+
+      // Reset form
       setName("");
       setState("");
       setLatitude("");
       setLongitude("");
 
       fetchLocations();
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      console.error("POST error:", err);
+      console.log("Backend response:", err.response?.data);
     }
   };
 
@@ -61,37 +67,46 @@ export default function LocationPage() {
       <form onSubmit={handleAddLocation} className="mb-6 flex gap-4 flex-wrap">
         <input
           type="text"
-          placeholder="Name UP"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="border p-2 rounded flex-1"
           required
         />
+
         <input
-            type="text"
-            placeholder="State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
+          type="text"
+          placeholder="State"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          className="border p-2 rounded w-24"
+          required
         />
+
         <input
           type="number"
           step="any"
           placeholder="Latitude"
           value={latitude}
           onChange={(e) => setLatitude(e.target.value)}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-32"
           required
         />
+
         <input
           type="number"
           step="any"
           placeholder="Longitude"
           value={longitude}
           onChange={(e) => setLongitude(e.target.value)}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-32"
           required
         />
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           Add
         </button>
       </form>
@@ -102,6 +117,7 @@ export default function LocationPage() {
           <tr className="bg-gray-100">
             <th className="border p-2">ID</th>
             <th className="border p-2">Name</th>
+            <th className="border p-2">State</th>
             <th className="border p-2">Lat</th>
             <th className="border p-2">Lng</th>
             <th className="border p-2">Created</th>
@@ -113,6 +129,7 @@ export default function LocationPage() {
             <tr key={loc.id}>
               <td className="border p-2">{loc.id}</td>
               <td className="border p-2">{loc.name}</td>
+              <td className="border p-2">{loc.state}</td>
               <td className="border p-2">{loc.latitude}</td>
               <td className="border p-2">{loc.longitude}</td>
               <td className="border p-2">
