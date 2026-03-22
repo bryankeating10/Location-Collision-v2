@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from db.db import engine, Base
-from db import models
+from .db.db import engine, Base
+from .db import models
 
-from api import quants, testers, casinos, accounts, locations, actions
+from .api import quants, testers, casinos, accounts, locations, actions
 
 from fastapi.middleware.cors import CORSMiddleware
 
