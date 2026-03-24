@@ -3,9 +3,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.db import get_session
-from app.services.availability_service import get_availability_profile
-from app.schemas.availability import AvailabilityResponse
+from ..db.db import get_session
+from ..services.availability_service import get_availability_profile
+from ..schemas.availability import AvailabilityResponse
 
 router = APIRouter(prefix="/availability", tags=["availability"])
 

@@ -18,7 +18,7 @@ services:
 
   backend:
     build: ./backend
-    image: bryankeating10/location-collision-backend:latest
+    image: bryankeating10/location-collision-v2-backend:latest
     volumes:
       - ./backend:/app
     working_dir: /app
@@ -34,6 +34,7 @@ services:
 
   frontend:
     build: ./frontend
+    image: bryankeating10/location-collision-v2-frontend:latest
     volumes:
       - ./frontend:/app
       - /app/node_modules

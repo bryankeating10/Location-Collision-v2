@@ -1,9 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 class ActionCreate(BaseModel):
     category: str
-    magnitude: float
+    magnitude: Optional[float] = None
     account_id: int
     location_id: int
 
@@ -19,7 +20,7 @@ class ActionResponse(BaseModel):
     magnitude: float
     account_id: int
     location_id: int
-    created_at: datetime
+    performed_at: datetime
 
     class Config:
         from_attributes = True

@@ -1,10 +1,10 @@
 # app/services/availability_service.py
-
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import List
 
-from app.schemas.availability import AvailabilityResponse, CasinoAvailability
-from app.db.models import Action, Account, Casino
+from ..schemas.availability import AvailabilityResponse, CasinoAvailability
+from ..db.models import Action, Account, Casino
 
 
 def get_availability_profile(db: Session, tester_id: int, location_id: int) -> AvailabilityResponse:
@@ -14,17 +14,22 @@ def get_availability_profile(db: Session, tester_id: int, location_id: int) -> A
     False = available
     """
     # 1️⃣ Get all accounts for this tester
-    tester_accounts: List[Account] = db.query(Account).filter(Account.tester_id == tester_id).all()
+    tester_accounts: List[Account] = list(
+        db.scalars(
+            select(Account).where(Account.tester_id == tester_id)
+        )
+    )
 
     # 2️⃣ Get all actions at this location performed by other testers
-    conflicting_actions: List[Action] = (
-        db.query(Action)
-        .join(Account)  # Join Action -> Account
-        .filter(
-            Action.location_id == location_id,
-            Account.tester_id != tester_id
+    conflicting_actions: List[Action] = list(
+        db.scalars(
+            select(Action)
+            .join(Account)
+            .where(
+                Action.location_id == location_id,
+                Account.tester_id != tester_id
+            )
         )
-        .all()
     )
 
     # 3️⃣ Build a set of casino_ids that are in conflict
