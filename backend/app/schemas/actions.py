@@ -8,16 +8,17 @@ class ActionCreate(BaseModel):
     account_id: int
     location_id: int
 
-class ActionUpdate(BaseModel):
-    # category: str
-    magnitude: float
-    # account_id: int
-    # location_id: int
+# Commented out below because I'm not convinced I'm getting it conceptually correct
+# class ActionUpdate(BaseModel):
+#     # category: str
+#     magnitude: Optional[float] = None
+#     # account_id: int
+#     # location_id: int
 
 class ActionResponse(BaseModel):
     id: int
     category: str
-    magnitude: float
+    magnitude: Optional[float] = None
     account_id: int
     location_id: int
     performed_at: datetime
