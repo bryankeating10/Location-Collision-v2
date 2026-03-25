@@ -34,7 +34,7 @@ const Availability: React.FC = () => {
     setError(null);
     try {
       const response = await axios.get<AvailabilityResponse>(
-        `/availability/?tester_id=${testerId}&location_id=${locationId}`
+        `http://127.0.0.1:8000/availability/?tester_id=${testerId}&location_id=${locationId}`
       );
 
       // Ensure availability is always an array
