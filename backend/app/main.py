@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from .db.db import engine, Base
 from .db import models
 
-from .api import quants, testers, casinos, accounts, locations, actions
+from .api import quants, testers, casinos, accounts, locations, actions, availability
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -25,6 +25,7 @@ app.include_router(casinos.router)
 app.include_router(accounts.router)
 app.include_router(locations.router)
 app.include_router(actions.router)
+app.include_router(availability.router)
 
 @app.get("/")
 def root():
